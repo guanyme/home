@@ -272,12 +272,10 @@ export async function getRepoReadme(
   if (!token) return null
 
   // 非默认 locale 优先获取对应语言的 README
-  // Intl.Locale 自动标准化大小写: zh-cn → zh-CN
   if (locale && locale !== 'en') {
-    const readmeLocale = new Intl.Locale(locale).toString()
     const localizedContent = await fetchReadmeByName(
       fullName,
-      `README.${readmeLocale}.md`,
+      `README.${locale}.md`,
     )
     if (localizedContent) {
       return processReadmeContent(localizedContent, fullName, defaultBranch)
